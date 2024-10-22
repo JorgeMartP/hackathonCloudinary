@@ -19,7 +19,9 @@ const Edit = () => {
   const handleDownload = () => {
     if (image) {
       const link = document.createElement("a");
-      link.href = image; // Usa el URL de la imagen
+      link.href = image; // Usa el URL de la image
+
+      
       link.download = `${nomImage}halloween.png`; // Nombre del archivo
       document.body.appendChild(link);
       link.click(); // Simula un clic en el enlace
