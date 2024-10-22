@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Edit from './componentes/edit';
+import Edit from './componentes/Edit';
 import Home from './componentes/Home';
 
 function App() {
