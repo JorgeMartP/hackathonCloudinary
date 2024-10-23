@@ -29,6 +29,18 @@ const Edit = () => {
     }
   };
 
+  const notifyError = () =>
+    toast.error("Error, try again", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   const handleDataPromp = async (prompt, prompt_costume) => {
     setLoading(true); // Inicia el loading
     setError(null); 
@@ -46,7 +58,6 @@ const Edit = () => {
         });
 
         const imageUrl = URL.createObjectURL(response.data);
-        console.log(response);
         setImage(imageUrl);
       } else if (prompt_costume != "") {
         const url = `${baseUrl}e_gen_replace:from_Current%20outfit;to_${encodeURIComponent(
@@ -57,7 +68,6 @@ const Edit = () => {
           responseType: "blob",
         });
         const imageUrl = URL.createObjectURL(response.data);
-        console.log(imageUrl);
         setImage(imageUrl);
       } else if (prompt != "") {
         const url = `${baseUrl}e_gen_background_replace:prompt_${encodeURIComponent(
@@ -68,11 +78,10 @@ const Edit = () => {
           responseType: "blob",
         });
         const imageUrl = URL.createObjectURL(response.data);
-        console.log(imageUrl);
         setImage(imageUrl);
       }
     } catch (error) {
-      console.error("Error al generar la imagen:", error);
+      notifyError
       setError("Ocurrió un error al generar la imagen. Inténtalo de nuevo.");
     } finally {
       setLoading(false);
@@ -111,12 +120,10 @@ const Edit = () => {
 
       const result = await response.json();
       setNomImage(result.public_id);
-      console.log(result);
-
       setImage(result.secure_url);
       setShowDownloadButton(true);
     } catch (error) {
-      console.error("Error uploading image:", error);
+      notifyError()
     } finally {
       setLoading(false);
     }
